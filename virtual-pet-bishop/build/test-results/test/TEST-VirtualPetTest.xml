@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="VirtualPetTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2020-12-04T22:35:00" hostname="DESKTOP-7CUAASU" time="0.004">
+  <properties/>
+  <testcase name="isHungerCorrect" classname="VirtualPetTest" time="0.001"/>
+  <testcase name="shouldBeThirsty" classname="VirtualPetTest" time="0.0"/>
+  <testcase name="wasFeedSuccessful" classname="VirtualPetTest" time="0.001"/>
+  <testcase name="isThirstCorrect" classname="VirtualPetTest" time="0.0"/>
+  <testcase name="shouldBeHungry" classname="VirtualPetTest" time="0.0"/>
+  <testcase name="didTheCorrectTIme" classname="VirtualPetTest" time="0.001"/>
+  <testcase name="shouldNeedToUseBathroom" classname="VirtualPetTest" time="0.0"/>
+  <testcase name="wasWasteSuccessful" classname="VirtualPetTest" time="0.0"/>
+  <testcase name="isWasteCorrect" classname="VirtualPetTest" time="0.0"/>
+  <testcase name="wasDrinkSuccessful" classname="VirtualPetTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
