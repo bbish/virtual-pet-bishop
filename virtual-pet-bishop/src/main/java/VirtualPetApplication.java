@@ -8,7 +8,7 @@ public class VirtualPetApplication {
         System.out.println("Welcome to Java Pet");
         System.out.print("What do you want to call your otter? ");
         String petName = input.nextLine();
-        VirtualPet myVirtualPet = new VirtualPet(50, 50, 80, petName);
+        VirtualPet myVirtualPet = new VirtualPet(50, 50, 80, 80, petName, "my pet");
         System.out.println(petName + " The Otter ");
         System.out.println(" .----.__\n" +
                 "     / c  ^  _`;\n" +
@@ -51,8 +51,6 @@ public class VirtualPetApplication {
                 myVirtualPet.drink();
             } else if (choice == 3) {
                 myVirtualPet.relieve();
-            } else if (choice == 4) {
-                myVirtualPet.doNothing();
             } else {
                 System.out.println("Invalid response, Please try again");
             }

@@ -1,114 +1,131 @@
+import java.util.Random;
+
 public class VirtualPet {
+    private String name;
+    private String description;
     private int hunger;
     private int thirst;
     private int waste;
     private int timePassed;
-    private String name;
+    private int boredom;
     private boolean isDead;
 
-    //constructor for Virtual Pet. Takes in 3 variables
-    public VirtualPet(int inHunger, int inThirst, int inWaste, String inName) {
+
+    public VirtualPet(int inHunger, int inThirst, int inWaste, int inBoredom, String inName, String inDescription) {
+        description = inDescription;
+        name = inName;
         hunger = inHunger;
         thirst = inThirst;
         waste = inWaste;
+        boredom = inBoredom;
         timePassed = 0;
-        name = inName;
         isDead = false;
     }
 
-    //checks if hunger is less than 50
+    Random rand = new Random();
+    public VirtualPet(String inName, String inDescription) {
+        description = inDescription;
+        name = inName;
+        hunger = rand.nextInt(100);
+        thirst = rand.nextInt(100);
+        waste = rand.nextInt(100);
+        boredom = rand.nextInt(100);
+        timePassed = 0;
+        isDead = false;
+    }
     public boolean isHungry() {
         return hunger <= 0;
     }
-
-    //checks if thirst is less than 50
     public boolean isThirsty() {
         return thirst <= 0;
     }
-
-    //checks if waste is greater than 50
     public boolean needToWaste() {
         return waste >= 80;
     }
-
-    // tracks passage of time based on action
-    public void tick() {
-        timePassed ++;
-        if (needToWaste()) {
-            relieve();
-        } else if (hunger >= 100 || thirst >= 100) {
-            isDead = true;
-        } else if (timePassed > 20) {
-            isDead = true;
-        }
+    public boolean isBored() {
+        return boredom <= 0;
     }
 
     public boolean getStatus() {
         return isDead;
     }
-
-    //return time passage of time value
     public int getTimePassed() {
         return timePassed;
     }
-
-    //return hunger value
     public int getHunger() {
         return hunger;
     }
-
-    //return thirst value
     public int getThirst() {
         return thirst;
     }
-
-    //return waste value
     public int getWaste() {
         return waste;
     }
+    public int getBoredom() {
+        return boredom;
+    }
+    public String getName() {
+        return name;
+    }
+    public String getDescription() {
+        return description;
+    }
 
-    //decrease hunger and increase need to use the bathroom
     public void feed() {
+
         hunger -= 20;
         if (isHungry()) {
             hunger = 0;
-            System.out.println("\nI'm good! I don't need anything else to eat.\n");
+            System.out.println("\nPlease no more pizza...please..." + getName() + " is full\n");
         } else {
-            waste += 30;
+            waste += 20;
             thirst += 10;
             timePassed++;
             tick();
         }
     }
-
-    //decrease thirst and increase need to use the bathroom
     public void drink() {
-        thirst -= 30;
+
+        thirst -= 20;
         if (isThirsty()) {
             thirst = 0;
-            System.out.println("\nI'm good! I don't need anything else to drink.\n");
+            System.out.println("\n" + getName() + " is good! " + getName() +" doesn't need anything else to drink.\n");
         } else {
-            waste += 20;
+            waste += 30;
             hunger += 10;
             timePassed++;
             tick();
         }
-
     }
-
-    //decrease need to use the bathroom
     public void relieve() {
+
         waste -= waste;
         hunger += 5;
         thirst += 5;
+        boredom += 5;
         tick();
     }
+    public void play() {
 
-    //do nothing
-    public void doNothing() {
-        hunger+=10;
-        thirst+=10 ;
-        waste+=10;
-        tick();
+        boredom -= 20;
+        if (isBored()) {
+            System.out.println(getName() + " is all out of chips. \n");
+            boredom = 0;
+        } else {
+            waste += 5;
+            thirst += 5;
+            hunger += 5;
+            tick();
+        }
+    }
+
+    public void tick() {
+        timePassed++;
+        if (needToWaste()) {
+            relieve();
+            System.out.println(getName() + " just peed \n");
+        } else if (hunger >= 100 || thirst >= 100) {
+            isDead = true;
+        }
     }
 }
