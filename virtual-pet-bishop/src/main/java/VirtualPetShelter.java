@@ -8,11 +8,13 @@ public class VirtualPetShelter {
 
     public void addPet(VirtualPet petToAdd) {
         pets.put(petToAdd.getName(), petToAdd);
+        tickAllPets();
     }
     public void removePet(String petName) {
         VirtualPet chosen = pets.get(petName);
         if(chosen != null) {
             pets.remove(petName);
+            tickAllPets();
         }
     }
     public void feedAllPets() {
@@ -24,8 +26,11 @@ public class VirtualPetShelter {
         System.out.println(" ");
 
         for (VirtualPet i : retrievePets()) {
-            i.feed();
+            if(i instanceof OrganicPet) {
+                ((OrganicPet) i).feed();
+            }
         }
+        tickAllPets();
     }
     public void allPetsDrink() {
         System.out.println("  .\n" +
@@ -43,69 +48,127 @@ public class VirtualPetShelter {
         System.out.println("Guess that's one way to hydrate. \n");
 
         for (VirtualPet i : retrievePets()) {
-            i.drink();
+            if(i instanceof OrganicPet)
+                ((OrganicPet)i).drink();
         }
+        tickAllPets();
     }
     public void playWithPet(String petName) {
-        System.out.println("  _____\n" +
-                "         |A .  | _____\n" +
-                "         | /.\\ ||A ^  | _____\n" +
-                "         |(_._)|| / \\ ||A _  | _____\n" +
-                "         |  |  || \\ / || ( ) ||A_ _ |\n" +
-                "         |____V||  .  ||(_'_)||( v )|\n" +
-                "                |____V||  |  || \\ / |\n" +
-                "                       |____V||  .  |\n" +
-                "                              |____V|\n");
-
-        VirtualPet chosen = pets.get(petName);
+         VirtualPet chosen = pets.get(petName);
         if(chosen != null) {
+
+            System.out.println("  _____\n" +
+                    "         |A .  | _____\n" +
+                    "         | /.\\ ||A ^  | _____\n" +
+                    "         |(_._)|| / \\ ||A _  | _____\n" +
+                    "         |  |  || \\ / || ( ) ||A_ _ |\n" +
+                    "         |____V||  .  ||(_'_)||( v )|\n" +
+                    "                |____V||  |  || \\ / |\n" +
+                    "                       |____V||  .  |\n" +
+                    "                              |____V|\n");
+
             chosen.play();
+            tickAllPets();
         }
         else
             System.out.println("That pet isn't here! \n");
     }
 
     public void takeToBathroom(String petName) {
-        System.out.println("______     _   _          ______                _    \n" +
-                "| ___ \\   | | | |         | ___ \\              | |   \n" +
-                "| |_/ /__ | |_| |_ _   _  | |_/ /_ __ ___  __ _| | __\n" +
-                "|  __/ _ \\| __| __| | | | | ___ \\ '__/ _ \\/ _` | |/ /\n" +
-                "| | | (_) | |_| |_| |_| | | |_/ / | |  __/ (_| |   < \n" +
-                "\\_|  \\___/ \\__|\\__|\\__, | \\____/|_|  \\___|\\__,_|_|\\_\\\n" +
-                "                    __/ |                            \n" +
-                "                   |___/                         ");
-        System.out.println(" ");
 
         VirtualPet chosen = pets.get(petName);
-        if(chosen != null) {
-            chosen.relieve();
+        if(chosen instanceof OrganicPet) {
+            System.out.println("  .--\"\"--.___.._\n" +
+                    " (  <__>  )     `-.\n" +
+                    " |`--..--'|      <|\n" +
+                    " |       :|       /\n" +
+                    " |       :|--\"\"-./\n" +
+                    " `.__  __;' \n" +
+                    "     \"\"     ");
+            ((OrganicPet)chosen).relieve();
+            tickAllPets();
         }
         else
-            System.out.println("That pet isn't here! \n");
+            System.out.println("That pet isn't available to pee! \n");
+    }
+
+    public void takeOnAWalk(String petName) {
+
+        VirtualPet chosen = pets.get(petName);
+        if(chosen instanceof RoboticDog) {
+            ((RoboticDog)chosen).walk();
+            tickAllPets();
+        } else if (chosen instanceof OrganicDog) {
+            ((OrganicDog)chosen).walk();
+            tickAllPets();
+        }
+        else
+            System.out.println("That pet isn't available for a walk! \n");
+    }
+
+    public void cleanOrganicPet(String petName) {
+
+        VirtualPet chosen = pets.get(petName);
+        if(chosen instanceof OrganicPet) {
+            System.out.println(" ||\n" +
+                    "  ||\n" +
+                    "  ||\n" +
+                    "  ||\n" +
+                    "  ||\n" +
+                    "  ||\n" +
+                    "  ||     Here you go, sweep\n" +
+                    "  ||     that up..............\n" +
+                    " /||\\\n" +
+                    "/||||\\\n" +
+                    "======         __|__\n" +
+                    "||||||        / ~@~ \\\n" +
+                    "||||||       |-------|\n" +
+                    "||||||       |_______|");
+            ((OrganicPet)chosen).clean();
+            tickAllPets();
+        }
+        else
+            System.out.println("That pet isn't available for cleaning! \n");
+    }
+
+    public void oilRobotPet(String petName) {
+
+        VirtualPet chosen = pets.get(petName);
+        if(chosen instanceof RoboticPet) {
+            ((RoboticPet)chosen).maintenance();
+            tickAllPets();
+        }
+        else
+            System.out.println("That pet isn't available for maintenance! \n");
     }
     public void tickAllPets(){
-        ArrayList<VirtualPet> deadPets = new ArrayList<VirtualPet>();
+        //ArrayList<VirtualPet> deadPets = new ArrayList<VirtualPet>();
         for (VirtualPet i : retrievePets()){
             i.tick();
-            if(i.getStatus())
-                deadPets.add(i);
+            /*if(i.getStatus())
+                deadPets.add(i);*/
         }
-        for(int i=0; i<deadPets.size(); i++) {
+        /*for(int i=0; i<deadPets.size(); i++) {
             removePet(deadPets.get(i).getName());
             System.out.println(deadPets.get(i).getName() + " died. Please take better care of the pets" );
-        }
+        }*/
     }
     public void petStatus() {
         for (VirtualPet i : retrievePets()) {
-            //look up printf
-            System.out.println(i.getName() + "\t\t " + i.getHunger() + "\t\t  "  + i.getThirst() + "\t\t  "  + i.getWaste()
-                    + "\t\t\t" + i.getBoredom());
+            if(i instanceof OrganicPet) {
+                System.out.println(i.getName() + "\t\t " + ((OrganicPet) i).getHunger() + "\t\t \t " + ((OrganicPet) i).getThirst() + "\t\t  "
+                        + ((OrganicPet) i).getWaste() + "\t\t\t" + i.getBoredom() + "\t\t\t\t\t" + ((OrganicPet) i).getCleanliness());
+            } else if (i instanceof RoboticPet) {
+                System.out.println(i.getName() + "\t\t\t\t\t\t\t\t\t\t\t\t" + i.getBoredom() + "\t\t\t\t\t\t" + ((RoboticPet)i).getOil());
+            }
         }
-
     }
+
     public Collection<VirtualPet> retrievePets(){
         return pets.values();
     }
+
+
 
     public String listOfAllPets(){
         String allPets= "";
@@ -115,8 +178,26 @@ public class VirtualPetShelter {
         return allPets;
     }
 
-    public VirtualPet retrievePet(String petName){
-        return pets.get(petName);
+    public String listOfAllOrganicPets(){
+        String allPets= "";
+        for(VirtualPet i : retrievePets()){
+            if(i instanceof OrganicPet)
+                allPets += i.getName() + " " + i.getDescription() + "\n";
+        }
+        return allPets;
     }
+
+
+    public String listOfAllRoboticPets(){
+        String allPets= "";
+        for(VirtualPet i : retrievePets()){
+            if(i instanceof RoboticPet)
+                allPets += i.getName() + " " + i.getDescription() + "\n";
+        }
+        return allPets;
+    }
+
+
+
 
 }

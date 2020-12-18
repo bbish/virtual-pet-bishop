@@ -9,26 +9,30 @@ import org.junit.Test;
 import java.util.Collection;
 
 public class VirtualPetShelterTest {
-    /*
-    To Do List:
-    - Able to add pets
-    - Able to remove a specific pet from shelter given it's name
-    - Able to feed all pets in the shelter.
-    - Able to tick all pets.
-    - Return list of pets in shelter.
-     */
 
 
 
     VirtualPetShelter underTest = new VirtualPetShelter();
-    VirtualPet testPet = new VirtualPet("Testy", "the 1st tested");
-    VirtualPet testPet2 = new VirtualPet("Tested", "the 2nd test");
+    VirtualPet testPet = new OrganicCat("Testy", "the 1st tested");
+    VirtualPet testPet2 = new OrganicDog("Tested", "the 2nd test");
+    VirtualPet testPet3 = new RoboticDog("Testier", "the 3rd tested");
+    VirtualPet testPet4 = new RoboticCat("Testiest", "the 4th test");
 
     @Test
     public void addNewPetTest() {
         underTest.addPet(testPet);
         Collection<VirtualPet> pets = underTest.retrievePets();
         Assert.assertEquals(1, pets.size());
+    }
+
+    @Test
+    public void add4NewPetTest() {
+        underTest.addPet(testPet);
+        underTest.addPet(testPet2);
+        underTest.addPet(testPet3);
+        underTest.addPet(testPet4);
+        Collection<VirtualPet> pets = underTest.retrievePets();
+        Assert.assertEquals(4, pets.size());
     }
 
     @Test
@@ -44,9 +48,11 @@ public class VirtualPetShelterTest {
 
         underTest.addPet(testPet);
         underTest.addPet(testPet2);
+        underTest.addPet(testPet3);
+        underTest.addPet(testPet4);
         underTest.feedAllPets();
-        Assert.assertTrue(testPet.getHunger() != 100);
-        Assert.assertTrue(testPet2.getHunger() != 100);
+        Assert.assertTrue(((OrganicPet)testPet).getHunger() != 100);
+        Assert.assertTrue(((OrganicPet)testPet2).getHunger() != 100);
     }
 
     @Test
@@ -54,34 +60,26 @@ public class VirtualPetShelterTest {
 
         underTest.addPet(testPet);
         underTest.addPet(testPet2);
+        underTest.addPet(testPet3);
+        underTest.addPet(testPet4);
         underTest.feedAllPets();
-        Assert.assertTrue(testPet.getThirst() != 100);
-        Assert.assertTrue(testPet2.getThirst() != 100);
+        Assert.assertTrue(((OrganicPet)testPet).getThirst() != 100);
+        Assert.assertTrue(((OrganicPet)testPet2).getThirst() != 100);
     }
 
     @Test
     public void shouldBeAbleToTakePetToBathroom() {
-        VirtualPetShelter underTest = new VirtualPetShelter();
-        VirtualPet testPet = new VirtualPet(50, 50, 50, 50, "Testy", "the 1st tested");
-        VirtualPet testPet2 = new VirtualPet(50, 50, 50, 50, "Tested", "the 2nd test");
         underTest.addPet(testPet);
-        underTest.addPet(testPet2);
-
         underTest.takeToBathroom("Testy");
-        Assert.assertEquals(0,testPet.getWaste());
+        Assert.assertEquals(5,((OrganicPet)testPet).getWaste());
 
     }
     @Test
     public void shouldBeAbleToPlayWithAPet() {
-        VirtualPetShelter underTest = new VirtualPetShelter();
-        VirtualPet testPet = new VirtualPet(50, 50, 50, 50, "Testy", "the 1st tested");
-        VirtualPet testPet2 = new VirtualPet(50, 50, 50, 50, "Tested", "the 2nd test");
         underTest.addPet(testPet);
-        underTest.addPet(testPet2);
         underTest.playWithPet("Testy");
-        underTest.playWithPet("Tested");
+        Assert.assertTrue(((OrganicPet)testPet).getBoredom() != 100);
 
-        Assert.assertEquals(30, testPet.getBoredom());
 
     }
     @Test
@@ -94,17 +92,25 @@ public class VirtualPetShelterTest {
 
     }
 
+
+
     @Test
     public void shouldTickAllPets() {
-        VirtualPetShelter underTest = new VirtualPetShelter();
-        VirtualPet testPet = new VirtualPet("Testy", "the 1st tested");
-        VirtualPet testPet2 = new VirtualPet("Tested", "the 2nd test");
         underTest.addPet(testPet);
-        underTest.addPet(testPet2);
-
+        underTest.addPet(testPet3);
+        int originalHunger = ((OrganicPet)testPet).getHunger();
+        int originalThirst = ((OrganicPet)testPet).getThirst();
+        int originalClean = ((OrganicPet)testPet).getCleanliness();
+        int originalBoredom1 = ((OrganicPet)testPet).getBoredom();
+        int originalBoredom2 = ((RoboticPet)testPet3).getBoredom();
+        int originalOil = ((RoboticPet)testPet3).getOil();
         underTest.tickAllPets();
-        int petTimepassed = testPet.getTimePassed();
 
-        Assert.assertEquals(1, petTimepassed);
+        Assert.assertTrue(originalHunger != ((OrganicPet)testPet).getHunger());
+        Assert.assertTrue(originalThirst != ((OrganicPet)testPet).getThirst());
+        Assert.assertTrue(originalClean != ((OrganicPet)testPet).getCleanliness());
+        Assert.assertTrue(originalBoredom1 != ((OrganicPet)testPet).getBoredom());
+        Assert.assertTrue(originalBoredom2 != ((RoboticPet)testPet3).getBoredom());
+        Assert.assertTrue(originalOil != ((RoboticPet)testPet3).getOil());
     }
 }

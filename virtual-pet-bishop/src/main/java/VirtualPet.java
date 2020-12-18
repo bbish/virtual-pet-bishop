@@ -1,58 +1,49 @@
 import java.util.Random;
 
 public class VirtualPet {
-    private String name;
-    private String description;
-    private int hunger;
-    private int thirst;
-    private int waste;
-    private int timePassed;
-    private int boredom;
-    private boolean isDead;
+    protected String name;
+    protected String description;
+    protected int boredom;
+    /*protected int hunger;
+    protected int thirst;
+    protected int waste;
+    protected int timePassed;
+    protected boolean isDead;*/
 
 
-    public VirtualPet(int inHunger, int inThirst, int inWaste, int inBoredom, String inName, String inDescription) {
-        description = inDescription;
-        name = inName;
-        hunger = inHunger;
-        thirst = inThirst;
-        waste = inWaste;
-        boredom = inBoredom;
-        timePassed = 0;
-        isDead = false;
-    }
 
     Random rand = new Random();
     public VirtualPet(String inName, String inDescription) {
         description = inDescription;
         name = inName;
-        hunger = rand.nextInt(100);
-        thirst = rand.nextInt(100);
+        boredom = rand.nextInt(70);
+
+        /*hunger = rand.nextInt(70);
+        thirst = rand.nextInt(70);
         waste = rand.nextInt(100);
-        boredom = rand.nextInt(100);
         timePassed = 0;
-        isDead = false;
+        isDead = false;*/
     }
-    public boolean isHungry() {
+   /* public boolean isNotHungry() {
         return hunger <= 0;
     }
-    public boolean isThirsty() {
+    public boolean isNotThirsty() {
         return thirst <= 0;
     }
     public boolean needToWaste() {
         return waste >= 80;
-    }
-    public boolean isBored() {
+    }*/
+    public boolean isNotBored() {
         return boredom <= 0;
     }
 
-    public boolean getStatus() {
+   /* public boolean getStatus() {
         return isDead;
     }
     public int getTimePassed() {
         return timePassed;
-    }
-    public int getHunger() {
+    }*/
+   /* public int getHunger() {
         return hunger;
     }
     public int getThirst() {
@@ -60,7 +51,7 @@ public class VirtualPet {
     }
     public int getWaste() {
         return waste;
-    }
+    }*/
     public int getBoredom() {
         return boredom;
     }
@@ -71,61 +62,56 @@ public class VirtualPet {
         return description;
     }
 
-    public void feed() {
+    /*public void feed() {
 
         hunger -= 20;
-        if (isHungry()) {
+        if (isNotHungry()) {
             hunger = 0;
             System.out.println("\nPlease no more pizza...please..." + getName() + " is full\n");
-        } else {
+        } *//*else {
             waste += 20;
             thirst += 10;
             timePassed++;
             tick();
-        }
+        }*//*
     }
     public void drink() {
 
         thirst -= 20;
-        if (isThirsty()) {
+        if (isNotThirsty()) {
             thirst = 0;
             System.out.println("\n" + getName() + " is good! " + getName() +" doesn't need anything else to drink.\n");
-        } else {
+        } *//*else {
             waste += 30;
             hunger += 10;
             timePassed++;
             tick();
-        }
+        }*//*
     }
     public void relieve() {
 
         waste -= waste;
-        hunger += 5;
+       *//* hunger += 5;
         thirst += 5;
         boredom += 5;
-        tick();
-    }
+        tick();*//*
+    }*/
     public void play() {
 
         boredom -= 20;
-        if (isBored()) {
-            System.out.println(getName() + " is all out of chips. \n");
+        if (isNotBored()) {
+            System.out.println(getName() + " done playing. \n");
             boredom = 0;
-        } else {
+        /*} else {
             waste += 5;
             thirst += 5;
             hunger += 5;
-            tick();
+           tick()*/
         }
     }
 
+
     public void tick() {
-        timePassed++;
-        if (needToWaste()) {
-            relieve();
-            System.out.println(getName() + " just peed \n");
-        } else if (hunger >= 100 || thirst >= 100) {
-            isDead = true;
-        }
+
     }
 }

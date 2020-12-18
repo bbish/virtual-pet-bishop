@@ -1,3 +1,4 @@
+/*
 import java.util.Scanner;
 public class VirtualPetApplication {
     public static void main(String[] args) {
@@ -8,7 +9,7 @@ public class VirtualPetApplication {
         System.out.println("Welcome to Java Pet");
         System.out.print("What do you want to call your otter? ");
         String petName = input.nextLine();
-        VirtualPet myVirtualPet = new VirtualPet(50, 50, 80, 80, petName, "my pet");
+        VirtualPet myVirtualPet = new VirtualPet(petName, "my pet");
         System.out.println(petName + " The Otter ");
         System.out.println(" .----.__\n" +
                 "     / c  ^  _`;\n" +
@@ -66,4 +67,4 @@ public class VirtualPetApplication {
         //prints when myVirtualPet dies
         System.out.println("\n" + petName + " is dead!");
     }
-}
+}*/
